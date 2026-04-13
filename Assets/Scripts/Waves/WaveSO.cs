@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Game/Wave")]
 public class WaveSO : ScriptableObject
@@ -7,7 +8,6 @@ public class WaveSO : ScriptableObject
    public class EnemySpawn
     {
         public EnemySO enemySO;
-        public int spawnCount;
         public float spawnDelay;
      }
      public List<EnemySpawn> enemySpawns;

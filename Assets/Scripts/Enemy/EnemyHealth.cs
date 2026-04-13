@@ -16,7 +16,7 @@ public class EnemyHealth : MonoBehaviour
     {
         EnemyStats.UnRegisterHealth(this);
     }
-    private void EnemyStatus(EnemySO enemySO)
+    public void Init(EnemySO enemySO)
     {
         maxHealth = enemySO.maxHealth;
         currentHealth = enemySO.maxHealth;
