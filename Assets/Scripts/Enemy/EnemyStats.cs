@@ -1,16 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour
+public static class EnemyStats
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private static List<EnemyHealth>activeEnemy=new List<EnemyHealth>();
 
-    // Update is called once per frame
-    void Update()
+    public static void RegisterHealth(EnemyHealth enemy)
     {
-        
+        activeEnemy.Add(enemy);
+    }
+    public static void UnRegisterHealth(EnemyHealth enemy)
+    {
+        activeEnemy.Remove(enemy);
+    }
+    public static List<EnemyHealth> GetAll()
+    {
+        return activeEnemy;
     }
 }
