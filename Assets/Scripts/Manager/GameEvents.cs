@@ -8,6 +8,8 @@ public class GameEvents : ScriptableObject
     public event Action<int> OnLivesChanged;
     public event Action<int> OnWaveStarted;
     public event Action OnEnemyReachedBase;
+
+    public event Action OnWaveCompleted;
     public event Action OnGameOver;
     public event Action OnVictory;
 
@@ -27,6 +29,10 @@ public class GameEvents : ScriptableObject
     public void RaiseOnEnemyReached()
     {
         OnEnemyReachedBase?.Invoke();
+    }
+    public void RaiseOnWaveCompleted()
+    {
+        OnWaveCompleted?.Invoke();
     }
     public void RaiseOnGameOver()
     {
