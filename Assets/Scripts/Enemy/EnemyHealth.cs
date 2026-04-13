@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField]private GameEvents gameEvents;
-    [SerializeField]private Pooling enemyPool;
+    [SerializeField] private GameEvents gameEvents;
 
     private float maxHealth;
     private float currentHealth;
     private int rewardAmt;
 
-    private void OEnable()
+    private void OnEnable()
     {
         EnemyStats.RegisterHealth(this);
     }
@@ -17,11 +16,24 @@ public class EnemyHealth : MonoBehaviour
     {
         EnemyStats.UnRegisterHealth(this);
     }
-    public void EnemyStatus(EnemySO enemySO)
+    private void EnemyStatus(EnemySO enemySO)
     {
-        maxHealth=enemySO.maxHealth;
-        currentHealth=enemySO.maxHealth;
-        rewardAmt=enemySO.reward;
+        maxHealth = enemySO.maxHealth;
+        currentHealth = enemySO.maxHealth;
+        rewardAmt = enemySO.reward;
+    }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        gameEvents.RaiseOnCoinChanged(rewardAmt);
+        gameObject.SetActive(false);
     }
 
 }

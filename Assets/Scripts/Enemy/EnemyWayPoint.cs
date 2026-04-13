@@ -4,9 +4,7 @@ using UnityEngine;
 public class EnemyWayPoint : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
-    [SerializeField] private Pooling pooling;
-
-    private Transform[] _waypoints;
+    [SerializeField] private Transform[] _waypoints;
     private float _speed;
     private int currentIndex;
 
@@ -17,7 +15,7 @@ public class EnemyWayPoint : MonoBehaviour
         currentIndex = 0;
     }
 
-    void Update()
+    private void Update()
     {
         if (_waypoints == null || currentIndex >= _waypoints.Length)
         {
@@ -37,7 +35,6 @@ public class EnemyWayPoint : MonoBehaviour
         {
             Debug.Log("Enemy Reached the base");
             gameEvents.RaiseOnEnemyReached();
-            pooling.ReturnEnemy(gameObject);
         }
 
     }

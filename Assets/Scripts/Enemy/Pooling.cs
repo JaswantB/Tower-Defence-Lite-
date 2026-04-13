@@ -4,14 +4,14 @@ public class Pooling : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int poolSize = 20;
-    public Transform enemyParent;
+   [SerializeField]private Transform enemyParent;
     private List<GameObject> enemies = new List<GameObject>();
 
     void Awake()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform, enemyParent);
+            GameObject enemy = Instantiate(enemyPrefab, enemyParent);
             enemy.SetActive(false);
             enemies.Add(enemy);
         }
@@ -21,13 +21,13 @@ public class Pooling : MonoBehaviour
     {
         for(int i = 0; i < enemies.Count; i++)
         {
-            if (!enemies[i].activeInHierarchy == false)
+            if (enemies[i].activeInHierarchy == false)
             {
                 enemies[i].SetActive(true);
                 return enemies[i];
             }
         }
-        GameObject newEnemy=Instantiate(enemyPrefab,transform,enemyParent);
+        GameObject newEnemy=Instantiate(enemyPrefab, enemyParent);
         enemies.Add(newEnemy);
         return newEnemy;
     }
