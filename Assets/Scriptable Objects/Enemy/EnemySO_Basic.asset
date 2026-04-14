@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 011b3f58fa090f24ca2497d1b52770dc, type: 3}
-  m_Name: EnemySO
+  m_Name: EnemySO_Basic
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   maxHealth: 100
-  moveSpeed: 15
-  damageAmount: 0
+  moveSpeed: 2.5
+  damageAmount: 5
   reward: 0
   prefab: {fileID: 2349424792909016327, guid: 077f7e03ee2773447b9dca5004300c0a, type: 3}

@@ -20,6 +20,7 @@ public class TowerController : MonoBehaviour
         EnemyHealth targetEnemy = FindClosestEnemy();
         if (targetEnemy != null)
         {
+            Debug.Log($"Tower {gameObject.name} shooting at {targetEnemy.gameObject.name}");
             targetEnemy.TakeDamage(towerSO.damage);
         }
     }

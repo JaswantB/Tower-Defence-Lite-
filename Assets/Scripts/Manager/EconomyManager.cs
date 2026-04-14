@@ -4,7 +4,7 @@ using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
-    [SerializeField] private int initialMoney = 1000;
+    [SerializeField] private int initialMoney = 100;
     [SerializeField] private int initialLives = 20;
 
     private int coins;
@@ -27,12 +27,13 @@ public class EconomyManager : MonoBehaviour
     private void Start()
     {
         coins = initialMoney;
+        Debug.Log("Initial Coins: " + coins);
         lives = initialLives;
     }
     private void UpdateCoins(int amount)
     {
-        Debug.Log("Coins: " + coins);
         coins += amount;
+        Debug.Log("Coins Updated: " + coins);
     }
     private void LoseLives()
     {

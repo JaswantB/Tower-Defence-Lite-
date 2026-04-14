@@ -34,6 +34,9 @@ public class EnemyHealth : MonoBehaviour
     {
         gameEvents.RaiseOnCoinChanged(rewardAmt);
         gameObject.SetActive(false);
+
+        // 👇 ADD THIS
+        FindAnyObjectByType<WaveManager>().CheckWaveComplete();
     }
 
 }

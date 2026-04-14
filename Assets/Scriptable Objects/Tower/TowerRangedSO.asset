@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 698d31b52aeef37458989fa4376c3984, type: 3}
-  m_Name: TowerSO
+  m_Name: TowerRangedSO
   m_EditorClassIdentifier: Assembly-CSharp::TowerSO
-  damage: 0
-  range: 0
-  fireRate: 0
-  cost: 0
+  damage: 70
+  range: 10
+  fireRate: 0.5
+  cost: 100
   unlockShop: 0
-  towerPrefab: {fileID: 0}
+  towerPrefab: {fileID: 2159253832414753958, guid: 9ffdb3f7161529744b35797839b9b9b3, type: 3}
   projectilePrefab: {fileID: 0}

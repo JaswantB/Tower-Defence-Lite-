@@ -8,3 +8,4 @@ public class TowerSpots : MonoBehaviour
         isOccupied = occupied;
     }
 }
+    

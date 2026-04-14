@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
     [SerializeField]private LevelGenerator levelGenerator;
-    private bool isGameOver=false;
+    private bool isGameOver;
 
     private void OnEnable()
     {

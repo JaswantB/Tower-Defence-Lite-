@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7600628455191203478}
   - component: {fileID: 1378689420283150223}
   - component: {fileID: 2346374933075297384}
+  - component: {fileID: -386889586658844756}
   m_Layer: 0
   m_Name: 'Enemy '
   m_TagString: Untagged
@@ -60,8 +61,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWayPoint
   gameEvents: {fileID: 11400000, guid: 71ed6319f82e52f43ace7d7dc05fda84, type: 2}
-  _waypoints:
-  - {fileID: 0}
+  _waypoints: []
+--- !u!114 &-386889586658844756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2349424792909016327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976e23992ff14dc4da3b4d61b636c5ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!1 &7512514856251369077
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
-    [SerializeField] private Pooling pooling;
+    [SerializeField] private PoolManager poolManager;
 
     private WaveSO currentWave;
     private Transform[] _waypoints;
@@ -43,8 +43,12 @@ public class WaveManager : MonoBehaviour
         for (int i = 0; i < currentWave.enemySpawns.Count; i++)
         {
             var spawn = currentWave.enemySpawns[i];
-            SpawnEnemy(spawn.enemySO);
-            yield return new WaitForSeconds(spawn.spawnDelay);
+
+            for (int j = 0; j < spawn.count; j++)
+            {
+                SpawnEnemy(spawn.enemySO);
+                yield return new WaitForSeconds(spawn.spawnDelay);
+            }
         }
         isSpawning = false;
         gameEvents.RaiseOnEnemyReached();//All the enemies have been reached the base.
@@ -53,11 +57,20 @@ public class WaveManager : MonoBehaviour
     /// spawns an  enemy based on the enemySO 
     private void SpawnEnemy(EnemySO enemySO)
     {
-        GameObject enemyObj = pooling.GetEnemy();
+        GameObject enemyObj = poolManager.GetEnemy(enemySO);
         enemyObj.transform.position = _waypoints[0].position;
-
         Enemy enemy = enemyObj.GetComponent<Enemy>();
         enemy.Init(enemySO, _waypoints);
+        Debug.Log(enemyObj.name + " | ID: " + enemyObj.GetInstanceID());
+    }
+
+    public void CheckWaveComplete()
+    {
+        if (EnemyStats.GetAll().Count == 0 && !isSpawning)
+        {
+            Debug.Log("Wave Completed");
+            gameEvents.RaiseOnWaveCompleted();
+        }
     }
 
 

@@ -4,23 +4,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]private GameEvents gameEvents;
+    [SerializeField] private GameEvents gameEvents;
 
     private TowerSO towerSO;
     private TowerSpots towerSpots;
-    private bool isGameOver=false;
+    private bool isGameOver = false;
+    [SerializeField] private TowerSO testTower;
 
     private void OnEnable()
     {
         gameEvents.OnGameOver += HandleGameOver;
-        gameEvents.OnVictory+= HandleVictory;
-        gameEvents.OnPurchaseSuccess+= HandlePurchaseSuccess;
+        gameEvents.OnVictory += HandleVictory;
+        gameEvents.OnPurchaseSuccess += HandlePurchaseSuccess;
     }
     private void OnDisable()
     {
         gameEvents.OnGameOver -= HandleGameOver;
-        gameEvents.OnVictory-= HandleVictory;
-        gameEvents.OnPurchaseSuccess-= HandlePurchaseSuccess;
+        gameEvents.OnVictory -= HandleVictory;
+        gameEvents.OnPurchaseSuccess -= HandlePurchaseSuccess;
+    }
+    void Start()
+    {
+        towerSO=testTower;
     }
     private void HandleGameOver()
     {
@@ -41,14 +46,14 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("TowerSpots reference is missing!");
             return;
         }
-        Instantiate(towerSO.towerPrefab,towerSpots.transform.position,quaternion.identity);
+        Instantiate(towerSO.towerPrefab, towerSpots.transform.position, quaternion.identity);
         towerSpots.OccupySpot(true);
         towerSpots = null;
         towerSO = null;
     }
     public void SelectTower(TowerSO tower)
     {
-        towerSO=tower;
+        towerSO = tower;
     }
     private void Update()
     {
@@ -57,41 +62,40 @@ public class PlayerController : MonoBehaviour
             return;
         }
         HandleTowerPlacement();
+        Debug.Log("HandleTowerPlacement running");
     }
     private void HandleTowerPlacement()
     {
-        if(towerSO == null)
+        if (towerSO == null)
         {
             return;
         }
-        if (Mouse.current.leftButton.wasPressedThisFrame == true)
+        if (!Mouse.current.leftButton.wasPressedThisFrame)
         {
-            towerSO=null;
             return;
         }
-        if(Mouse.current.rightButton.wasPressedThisFrame == false)
-        {
-             return;
-        }
-        Vector2 mousePos=Mouse.current.position.ReadValue();
-        Ray ray=Camera.main.ScreenPointToRay(mousePos);
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit) == false)
+        if (!Physics.Raycast(ray, out hit))
         {
-            Debug.Log("No hit detected!");
+            Debug.Log("No hit detected");
             return;
         }
-        if(hit.collider.TryGetComponent<TowerSpots>(out TowerSpots spot))
+        Debug.Log("Hit: " + hit.collider.name);
+        if (hit.collider.TryGetComponent<TowerSpots>(out TowerSpots spot))
         {
-            if(spot.isOccupied == true)
+            Debug.Log("Clicked on Tower Spot: " + spot.name);
+            if (spot.isOccupied == true)
             {
                 Debug.Log("Spot is already occupied!");
                 return;
             }
-            towerSpots=spot;
+            towerSpots = spot;
+            Debug.Log("Spawning tower at: " + towerSpots.transform.position);
             gameEvents.RaiseOnSpendCoins(towerSO.cost);
         }
-        
+
     }
 
 }

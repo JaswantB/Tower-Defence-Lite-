@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bb820496036e143884cc579e887e48, type: 3}
   m_Name: WaveSO
   m_EditorClassIdentifier: Assembly-CSharp::WaveSO
+  enemySpawns:
+  - enemySO: {fileID: 11400000, guid: 987d3e57caba0bd4cae5ae50393f91e5, type: 2}
+    count: 10
+    spawnDelay: 0.5
+  timeBetweenWaves: 0

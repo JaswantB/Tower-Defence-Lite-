@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyWayPoint : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
-    [SerializeField] private Transform[] _waypoints;
+    private Transform[] _waypoints;
     private float _speed;
     private int currentIndex;
 
