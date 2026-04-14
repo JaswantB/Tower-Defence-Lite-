@@ -16,4 +16,4 @@ MonoBehaviour:
   - enemySO: {fileID: 11400000, guid: 987d3e57caba0bd4cae5ae50393f91e5, type: 2}
     count: 10
     spawnDelay: 0.5
-  timeBetweenWaves: 0
+  timeBetweenWaves: 2

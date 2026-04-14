@@ -9,12 +9,16 @@ public class GameEvents : ScriptableObject
     public event Action<int> OnWaveStarted;
     public event Action OnEnemyReachedBase;
 
+    public event Action<TowerSO> OnTowerSelected;
     public event Action<int> OnSpendCoins;
     public event Action<bool> OnSpendCoinsResult;
     public event Action OnPurchaseSuccess;
     public event Action OnWaveCompleted;
     public event Action OnGameOver;
     public event Action OnVictory;
+
+    public event Action OnOpenTowerPanel;
+    public event Action OnCloseTowerPanel;
 
     public void RaiseOnCoinChanged(int amount)
     {
@@ -29,6 +33,11 @@ public class GameEvents : ScriptableObject
     {
         OnWaveStarted?.Invoke(Waves);
     }
+
+    public void RaiseOnTowerSelected(TowerSO tower)
+    {
+        OnTowerSelected?.Invoke(tower);
+    }
     public void RaiseOnSpendCoins(int amount)
     {
         OnSpendCoins?.Invoke(amount);
@@ -38,6 +47,14 @@ public class GameEvents : ScriptableObject
         OnSpendCoinsResult?.Invoke(success);
     }
 
+    public void RaiseOnOpenTowerPanel()
+    {
+        OnOpenTowerPanel?.Invoke();
+    }
+    public void RaiseOnCloseTowerPanel()
+    {
+        OnCloseTowerPanel?.Invoke();
+    }
     public void RaiseOnPurchaseSuccess()
     {
         OnPurchaseSuccess?.Invoke();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemySO_Basic
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   maxHealth: 100
-  moveSpeed: 2.5
+  moveSpeed: 2
   damageAmount: 5
-  reward: 0
+  reward: 10
   prefab: {fileID: 2349424792909016327, guid: 077f7e03ee2773447b9dca5004300c0a, type: 3}

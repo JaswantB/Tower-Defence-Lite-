@@ -5,7 +5,7 @@ public class EconomyManager : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
     [SerializeField] private int initialMoney = 100;
-    [SerializeField] private int initialLives = 20;
+    [SerializeField] private int initialLives = 100;
 
     private int coins;
     private int lives;

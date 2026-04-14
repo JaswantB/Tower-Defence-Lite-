@@ -5,19 +5,20 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameEvents gameEvents;
-
-    private TowerSO towerSO;
-    private TowerSpots towerSpots;
+    private TowerSpots selectedSpot;
+    private TowerSO selectedTower;
     private bool isGameOver = false;
 
     private void OnEnable()
     {
+        gameEvents.OnTowerSelected += SelectTower;
         gameEvents.OnGameOver += HandleGameOver;
         gameEvents.OnVictory += HandleVictory;
         gameEvents.OnPurchaseSuccess += HandlePurchaseSuccess;
     }
     private void OnDisable()
     {
+        gameEvents.OnTowerSelected -= SelectTower;
         gameEvents.OnGameOver -= HandleGameOver;
         gameEvents.OnVictory -= HandleVictory;
         gameEvents.OnPurchaseSuccess -= HandlePurchaseSuccess;
@@ -32,24 +33,6 @@ public class PlayerController : MonoBehaviour
         isGameOver = true;
         Debug.Log("Victory!");
     }
-
-    private void HandlePurchaseSuccess()
-    {
-        Debug.Log("Purchase successful!");
-        if (towerSpots == null)
-        {
-            Debug.LogError("TowerSpots reference is missing!");
-            return;
-        }
-        Instantiate(towerSO.towerPrefab, towerSpots.transform.position, quaternion.identity);
-        towerSpots.OccupySpot(true);
-        towerSpots = null;
-        towerSO = null;
-    }
-    public void SelectTower(TowerSO tower)
-    {
-        towerSO = tower;
-    }
     private void Update()
     {
         if (isGameOver == true)
@@ -61,10 +44,6 @@ public class PlayerController : MonoBehaviour
     }
     private void HandleTowerPlacement()
     {
-        if (towerSO == null)
-        {
-            return;
-        }
         if (!Mouse.current.leftButton.wasPressedThisFrame)
         {
             return;
@@ -81,16 +60,43 @@ public class PlayerController : MonoBehaviour
         if (hit.collider.TryGetComponent<TowerSpots>(out TowerSpots spot))
         {
             Debug.Log("Clicked on Tower Spot: " + spot.name);
-            if (spot.isOccupied == true)
+            if (spot.isOccupied)
             {
                 Debug.Log("Spot is already occupied!");
                 return;
             }
-            towerSpots = spot;
-            Debug.Log("Spawning tower at: " + towerSpots.transform.position);
-            gameEvents.RaiseOnSpendCoins(towerSO.cost);
+            selectedSpot = spot;
+            gameEvents.RaiseOnOpenTowerPanel();
         }
 
     }
 
+    private void SelectTower(TowerSO towerSO)
+    {
+        if (selectedSpot == null)
+        {
+            Debug.LogWarning("No Tower Spot Selected");
+            return;
+        }
+        selectedTower = towerSO;
+        gameEvents.RaiseOnSpendCoins(towerSO.cost);
+    }
+    private void HandlePurchaseSuccess()
+    {
+        Debug.Log("Purchase successful!");
+        if (selectedSpot == null || selectedTower == null)
+        {
+            Debug.Log("selectedSpot or selectedTower is null");
+            return;
+        }
+
+        Instantiate(selectedTower.towerPrefab, selectedSpot.transform.position, Quaternion.identity);
+        Debug.Log("Tower instantiated at: " + selectedSpot.transform.position);
+
+        selectedSpot.OccupySpot(true);
+
+        selectedSpot = null;
+        selectedTower = null;
+        gameEvents.RaiseOnCloseTowerPanel();
+    }
 }
