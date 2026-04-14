@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private TowerSO towerSO;
     private TowerSpots towerSpots;
     private bool isGameOver = false;
-    [SerializeField] private TowerSO testTower;
 
     private void OnEnable()
     {
@@ -22,10 +21,6 @@ public class PlayerController : MonoBehaviour
         gameEvents.OnGameOver -= HandleGameOver;
         gameEvents.OnVictory -= HandleVictory;
         gameEvents.OnPurchaseSuccess -= HandlePurchaseSuccess;
-    }
-    void Start()
-    {
-        towerSO=testTower;
     }
     private void HandleGameOver()
     {

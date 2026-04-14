@@ -41,7 +41,7 @@ public class LevelGenerator : MonoBehaviour
     private WaveSO BuildWaves(WaveSO waveSO)
     {
         float multiplier = 1f + (currentWaveIndex * 0.1f); // Increase difficulty by 10% each wave
-        WaveSO waveScale=Instantiate(waveSO);
+        WaveSO waveScale = Instantiate(waveSO);
         return waveSO;
     }
 

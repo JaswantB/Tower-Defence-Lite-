@@ -18,4 +18,4 @@ MonoBehaviour:
   cost: 100
   unlockShop: 0
   towerPrefab: {fileID: 2159253832414753958, guid: 9ffdb3f7161529744b35797839b9b9b3, type: 3}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 5779304792982609687, guid: 8e1061d396a5e68469936b3ae56d2733, type: 3}
