@@ -1,3 +1,4 @@
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
@@ -13,18 +14,20 @@ public class EconomyManager : MonoBehaviour
     {
         gameEvents.OnCoinChanged += UpdateCoins;
         gameEvents.OnEnemyReachedBase += LoseLives;
+        gameEvents.OnSpendCoins += HandleSpendCoins;
     }
 
     private void OnDisable()
     {
         gameEvents.OnCoinChanged -= UpdateCoins;
         gameEvents.OnEnemyReachedBase -= LoseLives;
+        gameEvents.OnSpendCoins -= HandleSpendCoins;
     }
 
     private void Start()
     {
-        coins=initialMoney;
-        lives=initialLives;
+        coins = initialMoney;
+        lives = initialLives;
     }
     private void UpdateCoins(int amount)
     {
@@ -34,33 +37,26 @@ public class EconomyManager : MonoBehaviour
     private void LoseLives()
     {
         Debug.Log("Lives: " + lives);
+        lives--;
+        gameEvents.RaiseOnLivesChanged(lives);
+
         if (lives <= 0)
         {
-            Debug.Log("Game Over!");
             gameEvents.RaiseOnGameOver();
         }
-        else
-        {
-            lives--;
-            gameEvents.RaiseOnLivesChanged(lives);
-        }
     }
-    public bool SpendCoins(int amount)
+    private void HandleSpendCoins(int amount)
     {
         if (coins >= amount)
         {
-            coins -= amount;
+            coins-=amount;
             gameEvents.RaiseOnCoinChanged(-amount);
-            return true;
+            gameEvents.RaiseOnSpendCoinsResult(true);
+
         }
-        return false;
-    }
-    public int GetCoins()
-    {
-        return coins;
-    }
-    public int GetLives()
-    {
-        return lives;
+        else
+        {
+            gameEvents.RaiseOnSpendCoinsResult(false);
+        }
     }
 }

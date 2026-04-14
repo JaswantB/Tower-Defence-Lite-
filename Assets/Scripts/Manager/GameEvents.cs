@@ -9,6 +9,9 @@ public class GameEvents : ScriptableObject
     public event Action<int> OnWaveStarted;
     public event Action OnEnemyReachedBase;
 
+    public event Action<int> OnSpendCoins;
+    public event Action<bool> OnSpendCoinsResult;
+    public event Action OnPurchaseSuccess;
     public event Action OnWaveCompleted;
     public event Action OnGameOver;
     public event Action OnVictory;
@@ -25,6 +28,19 @@ public class GameEvents : ScriptableObject
     public void RaiseOnWaveStarts(int Waves)
     {
         OnWaveStarted?.Invoke(Waves);
+    }
+    public void RaiseOnSpendCoins(int amount)
+    {
+        OnSpendCoins?.Invoke(amount);
+    }
+    public void RaiseOnSpendCoinsResult(bool success)
+    {
+        OnSpendCoinsResult?.Invoke(success);
+    }
+
+    public void RaiseOnPurchaseSuccess()
+    {
+        OnPurchaseSuccess?.Invoke();
     }
     public void RaiseOnEnemyReached()
     {
