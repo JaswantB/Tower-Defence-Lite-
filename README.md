@@ -37,13 +37,10 @@ Lose: Lives reach 0
 
 ## Structure
 Scripts/
-├── Manager
-├── Tower
-├── Enemy
-├── UI
-├── Waves
-└── Player
+ Manager
+ Tower
+ Enemy
+ UI
+ Waves
+ Player
 
-## Notes
-
-Built for learning and demonstrating clean architecture in Unity.
