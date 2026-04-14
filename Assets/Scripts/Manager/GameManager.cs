@@ -1,16 +1,35 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameEvents gameEvents;
+    [SerializeField]private LevelGenerator levelGenerator;
+    private bool isGameOver=false;
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        gameEvents.OnGameOver += HandleGameOver;
+        gameEvents.OnVictory += HandleVictory;
+    }
+    private void OnDisable()
+    {
+        gameEvents.OnGameOver -= HandleGameOver;
+        gameEvents.OnVictory -= HandleVictory;
+    }
+    private void Start()
+    {
+        isGameOver=false;
+
+    }
+    private void HandleGameOver()
+    {
+        isGameOver = true;
+        Debug.Log("Game Over!");
+    }
+    private void HandleVictory()
+    {
+        isGameOver = true;
+        Debug.Log("Victory!");
     }
 }
